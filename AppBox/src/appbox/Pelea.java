@@ -23,6 +23,6 @@ public class Pelea {
         }
     }
     // UN SELESCT PARA TENER DETERMINADO A PELEADORES:
-    
+    //ceamos un
 }
 

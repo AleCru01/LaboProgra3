@@ -14,4 +14,40 @@ public class Peleador {
     private float Altura, peso;
     private int edad;
     
+    // Getter y Setter para Nombre
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.Nombre = nombre;
+    }
+
+    // Getter y Setter para Altura
+    public float getAltura() {
+        return Altura;
+    }
+
+    public void setAltura(float altura) {
+        this.Altura = altura;
+    }
+
+    // Getter y Setter para peso
+    public float getPeso() {
+        return peso;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    // Getter y Setter para edad
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
 }

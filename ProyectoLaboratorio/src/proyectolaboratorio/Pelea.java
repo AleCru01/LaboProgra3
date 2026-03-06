@@ -16,14 +16,11 @@ public class Pelea {
     public void designarJuez(){
         for(int i = 0; i<3; i++){
             ju[i] = new Juez();
+            
             System.out.println("Dame el nombre del juez: ");
             ju[i].setNombre(in.nextLine());
         }
     }
-    public void imprimirJuez(){
-        for(Juez a : ju){
-            System.out.println(a.getNombre());
-            
-        }
-    }
+    // UN SELESCT PARA TENER DETERMINADO A PELEADORES:
+    
 }

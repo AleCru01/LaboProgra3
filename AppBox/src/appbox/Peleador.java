@@ -14,6 +14,14 @@ public class Peleador {
     private float Altura, peso;
     private int edad;
     
+    //constructor
+    public Peleador(String n, float alt, float pe, int ed){
+        this.setNombre(n);
+        this.setAltura(alt);
+        this.setPeso(pe);
+        this.setEdad(ed);
+    }
+    
     // Getter y Setter para Nombre
     public String getNombre() {
         return Nombre;

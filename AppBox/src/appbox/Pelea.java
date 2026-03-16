@@ -14,13 +14,16 @@ public class Pelea {
     Juez[] ju = new Juez[3];
     Scanner in = new Scanner(System.in);
     int i = 0;
-    public void designarJuez(){
-        for(int i = 0; i<3; i++){
-            ju[i] = new Juez();
-            
-            System.out.println("Dame el nombre del juez: ");
-            ju[i].setNombre(in.nextLine());
-        }
+    public void designarJuez(String ju1, String ju2, String ju3){
+       ju[0] = new Juez();
+       ju[0].setNombre(ju1);
+       ju[1] = new Juez(); 
+       ju[1].setNombre(ju2);
+       ju[2] = new Juez();
+       ju[2].setNombre(ju3);
+       for(Juez a: ju){
+           System.out.println("\n"+a.getNombre());
+       }
     }
     // UN SELESCT PARA TENER DETERMINADO A PELEADORES:
     //ceamos un

@@ -9,7 +9,7 @@ package appbox;
  * @author victo
  */
 public class AppBox {
-
+    public Pelea peleaPrincipal = new Pelea(); 
     /**
      * @param args the command line arguments
      */

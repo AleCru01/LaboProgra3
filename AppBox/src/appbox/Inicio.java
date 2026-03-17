@@ -17,6 +17,7 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -229,8 +230,11 @@ public class Inicio extends javax.swing.JFrame {
         if (Peleador1.getSelectedIndex() == Peleador2.getSelectedIndex() || Peleador1.getSelectedIndex() == 0 || Peleador2.getSelectedIndex() == 0) {
             new MensajeError(null,true).show();   
         }else{
+            Round r = new Round((String)Peleador1.getSelectedItem(),(String)Peleador2.getSelectedItem(),Juez1.getText(), Juez2.getText(), Juez3.getText());
+            r.setVisible(true);
+            this.setVisible(false);
             pe.designarJuez(Juez1.getText(), Juez2.getText(), Juez3.getText());
-            
+             
         }
     }//GEN-LAST:event_jButton1MouseClicked
 

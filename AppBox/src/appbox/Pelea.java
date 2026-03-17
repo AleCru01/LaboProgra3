@@ -14,6 +14,7 @@ public class Pelea {
     Juez[] ju = new Juez[3];
     Scanner in = new Scanner(System.in);
     int i = 0;
+    String MotivoFin = "";
     public void designarJuez(String ju1, String ju2, String ju3){
        ju[0] = new Juez();
        ju[0].setNombre(ju1);

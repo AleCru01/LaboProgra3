@@ -1,14 +1,17 @@
 package appbox;
 
-
+import java.util.Random;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author victo
  */
-
 public class Round extends javax.swing.JFrame {
-    
+
+    int c = 1;
+    Pelea nuevaPelea = new Pelea();
+
     /**
      * Contructor
      */
@@ -18,18 +21,87 @@ public class Round extends javax.swing.JFrame {
         Pe1.setText(pe1);
         Pe2.setText(pe2);
         LlenarDatos(pe1, pe2, re1, re2, re3);
+        Motivo.setVisible(false);
+        TextoMotivo.setVisible(false);
+        Finalmente.setVisible(false);
+        this.rellenarTabla(DatosPe1);
+        this.rellenarTabla(DatosPe2);
     }
-    
-    public void LlenarDatos(String p1, String p2, String r1, String r2, String r3){
-        Pelea nuevaPelea = new Pelea();
+
+    private boolean verificacion() {
+        try {
+            // Obtenemos los valores de los 6 JTextField
+            int v1 = Integer.parseInt(CaRoundJu1.getText().trim());
+            int v1p2 = Integer.parseInt(CaRoundJu1P2.getText().trim());
+
+            int v2 = Integer.parseInt(CaRoundJu2.getText().trim());
+            int v2p2 = Integer.parseInt(CaRoundJu2P2.getText().trim());
+
+            int v3 = Integer.parseInt(CaRoundJu3.getText().trim());
+            int v3p2 = Integer.parseInt(CaRoundJu3P2.getText().trim());
+
+            // Validamos que todos estén en el rango 7–10
+            if ((v1 >= 7 && v1 <= 10)
+                    && (v1p2 >= 7 && v1p2 <= 10)
+                    && (v2 >= 7 && v2 <= 10)
+                    && (v2p2 >= 7 && v2p2 <= 10)
+                    && (v3 >= 7 && v3 <= 10)
+                    && (v3p2 >= 7 && v3p2 <= 10)) {
+                // Guardamos en los ArrayList de cada juez
+                nuevaPelea.ju[0].puntos1.add(v1);
+                nuevaPelea.ju[0].puntos2.add(v1p2);
+
+                nuevaPelea.ju[1].puntos1.add(v2);
+                nuevaPelea.ju[1].puntos2.add(v2p2);
+
+                nuevaPelea.ju[2].puntos1.add(v3);
+                nuevaPelea.ju[2].puntos2.add(v3p2);
+
+                return true;
+            } else {
+                new MensajeError(null, true).show();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            // Si alguno no es número válido
+            new MensajeError(null, true).show();
+            return false;
+        }
+    }
+
+    public void LlenarDatos(String p1, String p2, String r1, String r2, String r3) {
+
         nuevaPelea.designarJuez(r1, r2, r3);
         nuevaPelea.configurarPeleador(p1, 0);
         nuevaPelea.configurarPeleador(p2, 1);
         nuevaPelea.mostrarPeleadores();
     }
-    public void generarGolpes(){
-        
+
+    public void rellenarTabla(javax.swing.JTable tabla) {
+        // Creamos un modelo con 1 columna y 5 filas
+        DefaultTableModel modelo = new DefaultTableModel(5, 1);
+
+        Random rand = new Random();
+
+        for (int i = 0; i < 4; i++) {
+            int numero = rand.nextInt(50) + 1; // aleatorio entre 1 y 50
+            modelo.setValueAt(numero, i, 0);   // fila i, columna 0
+        }
+        // Última fila: caídas menos probables
+        int prob = rand.nextInt(10); // valores 0–9
+        int caida;
+        if (prob == 0) {
+            // Solo 1 de cada 10 veces hay caída
+            caida = rand.nextInt(2) + 1; // caída de 1 o 2
+        } else {
+            caida = 0; // sin caída
+        }
+        modelo.setValueAt(caida, 4, 0); // fila 4 (quinta fila), columna 0
+
+        // Asignamos el modelo al JTable
+        tabla.setModel(modelo);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,50 +111,42 @@ public class Round extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         Pe2 = new javax.swing.JLabel();
         Contador = new javax.swing.JLabel();
         Pe1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         Siguiente = new javax.swing.JButton();
-        Siguiente1 = new javax.swing.JButton();
+        Terminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        DatosPe1 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        DatosPe2 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        Motivo = new javax.swing.JTextField();
+        TextoMotivo = new javax.swing.JLabel();
+        Finalmente = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        upPe1 = new javax.swing.JLabel();
-        crPe1 = new javax.swing.JLabel();
-        jaPe1 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jLabel14 = new javax.swing.JLabel();
+        CaRoundJu1 = new javax.swing.JTextField();
+        CaRoundJu2 = new javax.swing.JTextField();
+        CaRoundJu3 = new javax.swing.JTextField();
+        CaRoundJu2P2 = new javax.swing.JTextField();
+        CaRoundJu1P2 = new javax.swing.JTextField();
+        CaRoundJu3P2 = new javax.swing.JTextField();
+        Pe3 = new javax.swing.JLabel();
+        Pe4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,12 +177,12 @@ public class Round extends javax.swing.JFrame {
             }
         });
 
-        Siguiente1.setBackground(new java.awt.Color(255, 0, 51));
-        Siguiente1.setForeground(new java.awt.Color(0, 0, 0));
-        Siguiente1.setText("Terminar Pelea");
-        Siguiente1.addActionListener(new java.awt.event.ActionListener() {
+        Terminar.setBackground(new java.awt.Color(255, 0, 51));
+        Terminar.setForeground(new java.awt.Color(0, 0, 0));
+        Terminar.setText("Terminar Pelea");
+        Terminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Siguiente1ActionPerformed(evt);
+                TerminarActionPerformed(evt);
             }
         });
 
@@ -142,13 +206,47 @@ public class Round extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Caidas");
 
+        DatosPe1.setBackground(new java.awt.Color(255, 255, 255));
+        DatosPe1.setForeground(new java.awt.Color(0, 0, 0));
+        DatosPe1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Puntos"
+            }
+        ));
+        DatosPe1.setRowHeight(25);
+        jScrollPane2.setViewportView(DatosPe1);
+
+        DatosPe2.setBackground(new java.awt.Color(255, 255, 255));
+        DatosPe2.setForeground(new java.awt.Color(0, 0, 0));
+        DatosPe2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Puntos"
+            }
+        ));
+        DatosPe2.setRowHeight(25);
+        jScrollPane3.setViewportView(DatosPe2);
+
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Caidas");
+        jLabel7.setText("Japs:");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Ganchos");
+        jLabel8.setText("Cross:");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
@@ -156,51 +254,99 @@ public class Round extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("Cross:");
+        jLabel10.setText("Ganchos");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("Japs:");
+        jLabel11.setText("Caidas");
+
+        Motivo.setBackground(new java.awt.Color(255, 255, 255));
+        Motivo.setText("Motivo");
+        Motivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MotivoMouseClicked(evt);
+            }
+        });
+        Motivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MotivoActionPerformed(evt);
+            }
+        });
+
+        TextoMotivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TextoMotivo.setForeground(new java.awt.Color(0, 0, 0));
+        TextoMotivo.setText("Razon por terminar: ");
+
+        Finalmente.setBackground(new java.awt.Color(255, 0, 51));
+        Finalmente.setForeground(new java.awt.Color(0, 0, 0));
+        Finalmente.setText("Terminar");
+        Finalmente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FinalmenteActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("0");
+        jLabel12.setText("Calificación Juez 3:");
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText("0");
+        jLabel13.setText("Calificación Juez 1:");
 
-        upPe1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        upPe1.setForeground(new java.awt.Color(0, 0, 0));
-        upPe1.setText("0");
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setText("Calificación Juez 2:");
 
-        crPe1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        crPe1.setForeground(new java.awt.Color(0, 0, 0));
-        crPe1.setText("0");
+        CaRoundJu1.setText("0");
+        CaRoundJu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CaRoundJu1MouseClicked(evt);
+            }
+        });
 
-        jaPe1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jaPe1.setForeground(new java.awt.Color(0, 0, 0));
-        jaPe1.setText("0");
+        CaRoundJu2.setText("0");
+        CaRoundJu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CaRoundJu2ActionPerformed(evt);
+            }
+        });
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("0");
+        CaRoundJu3.setText("0");
+        CaRoundJu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CaRoundJu3ActionPerformed(evt);
+            }
+        });
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("0");
+        CaRoundJu2P2.setText("0");
+        CaRoundJu2P2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CaRoundJu2P2MouseClicked(evt);
+            }
+        });
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel19.setText("0");
+        CaRoundJu1P2.setText("0");
+        CaRoundJu1P2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CaRoundJu1P2MouseClicked(evt);
+            }
+        });
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel20.setText("0");
+        CaRoundJu3P2.setText("0");
+        CaRoundJu3P2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CaRoundJu3P2MouseClicked(evt);
+            }
+        });
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel21.setText("0");
+        Pe3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Pe3.setForeground(new java.awt.Color(0, 0, 0));
+        Pe3.setText("P2");
+
+        Pe4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Pe4.setForeground(new java.awt.Color(0, 0, 0));
+        Pe4.setText("P1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,52 +359,62 @@ public class Round extends javax.swing.JFrame {
                 .addComponent(Pe2)
                 .addGap(112, 112, 112))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(46, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Contador)
                         .addGap(174, 174, 174))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Siguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Siguiente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(24, 24, 24))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(TextoMotivo)
+                        .addComponent(Motivo)
+                        .addComponent(Finalmente, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel13)
-                            .addComponent(upPe1)
-                            .addComponent(crPe1)
-                            .addComponent(jaPe1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(CaRoundJu3, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                .addComponent(CaRoundJu2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                .addComponent(CaRoundJu1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Pe4))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel21))
-                        .addGap(115, 115, 115))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CaRoundJu1P2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Pe3))
+                                .addGap(53, 53, 53)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Siguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Terminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(CaRoundJu2P2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CaRoundJu3P2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(89, 89, 89)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,19 +424,22 @@ public class Round extends javax.swing.JFrame {
                     .addComponent(Contador)
                     .addComponent(jLabel4))
                 .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Pe1)
+                    .addComponent(Pe2))
+                .addGap(4, 4, 4)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Pe2)
-                            .addComponent(Pe1))
-                        .addGap(4, 4, 4)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -288,40 +447,42 @@ public class Round extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel10)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)
+                                .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jaPe1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(crPe1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(upPe1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel17)))
-                .addGap(92, 92, 92)
-                .addComponent(Siguiente)
+                                .addComponent(jLabel11)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Pe3)
+                    .addComponent(Pe4)
+                    .addComponent(Siguiente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Terminar)
+                    .addComponent(CaRoundJu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CaRoundJu1P2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
                 .addGap(18, 18, 18)
-                .addComponent(Siguiente1)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TextoMotivo)
+                    .addComponent(jLabel14)
+                    .addComponent(CaRoundJu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CaRoundJu2P2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Motivo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(CaRoundJu3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CaRoundJu3P2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(Finalmente)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -344,39 +505,107 @@ public class Round extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void TerminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TerminarActionPerformed
+        Motivo.setVisible(true);
+        TextoMotivo.setVisible(true);
+        Finalmente.setVisible(true);
+        Terminar.setVisible(false);
+    }//GEN-LAST:event_TerminarActionPerformed
+
     private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
-        // TODO add your handling code here:
+
+        if (c < 12) {
+            //hay menos de 12 rounds
+            if (verificacion() == true) {
+                //checamos las condiciones para avisar
+                this.rellenarTabla(DatosPe1);
+                this.rellenarTabla(DatosPe2);
+                c++;
+                Contador.setText(String.valueOf(c));
+            }
+
+        } else {
+            //imprimimos resultados
+            Resultados fin = new Resultados(nuevaPelea);
+            fin.setVisible(true);
+            this.setVisible(false);
+        }
+
+
     }//GEN-LAST:event_SiguienteActionPerformed
 
-    private void Siguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Siguiente1ActionPerformed
+    private void MotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MotivoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Siguiente1ActionPerformed
+    }//GEN-LAST:event_MotivoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void MotivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MotivoMouseClicked
+        // TODO add your handling code here:
+        Motivo.setText("");
+    }//GEN-LAST:event_MotivoMouseClicked
 
-}
+    private void FinalmenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalmenteActionPerformed
+        // TODO add your handling code here:
+        nuevaPelea.MotivoFin = Motivo.getText();
+        //Espera
+        Resultados fin = new Resultados(nuevaPelea);
+        fin.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_FinalmenteActionPerformed
+
+    private void CaRoundJu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaRoundJu2ActionPerformed
+        // TODO add your handling code here:
+        CaRoundJu2.setText("");
+    }//GEN-LAST:event_CaRoundJu2ActionPerformed
+
+    private void CaRoundJu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CaRoundJu1MouseClicked
+        // TODO add your handling code here:
+        CaRoundJu1.setText("");
+    }//GEN-LAST:event_CaRoundJu1MouseClicked
+
+    private void CaRoundJu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaRoundJu3ActionPerformed
+        // TODO add your handling code here:
+        CaRoundJu3.setText("");
+    }//GEN-LAST:event_CaRoundJu3ActionPerformed
+
+    private void CaRoundJu2P2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CaRoundJu2P2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CaRoundJu2P2MouseClicked
+
+    private void CaRoundJu1P2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CaRoundJu1P2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CaRoundJu1P2MouseClicked
+
+    private void CaRoundJu3P2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CaRoundJu3P2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CaRoundJu3P2MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CaRoundJu1;
+    private javax.swing.JTextField CaRoundJu1P2;
+    private javax.swing.JTextField CaRoundJu2;
+    private javax.swing.JTextField CaRoundJu2P2;
+    private javax.swing.JTextField CaRoundJu3;
+    private javax.swing.JTextField CaRoundJu3P2;
     private javax.swing.JLabel Contador;
+    private javax.swing.JTable DatosPe1;
+    private javax.swing.JTable DatosPe2;
+    private javax.swing.JButton Finalmente;
+    private javax.swing.JTextField Motivo;
     private javax.swing.JLabel Pe1;
     private javax.swing.JLabel Pe2;
+    private javax.swing.JLabel Pe3;
+    private javax.swing.JLabel Pe4;
     private javax.swing.JButton Siguiente;
-    private javax.swing.JButton Siguiente1;
-    private javax.swing.JLabel crPe1;
+    private javax.swing.JButton Terminar;
+    private javax.swing.JLabel TextoMotivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -385,11 +614,9 @@ public class Round extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JLabel jaPe1;
-    private javax.swing.JLabel upPe1;
     // End of variables declaration//GEN-END:variables
+
 }
